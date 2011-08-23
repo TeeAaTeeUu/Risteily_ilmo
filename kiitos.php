@@ -7,9 +7,9 @@ top();
 
 $db = new database();
 
-echo "kiitos " . $db->get_name_by_id($_GET['id_person']) . "!\n";
+echo "<p>kiitos " . $db->get_name_by_id($_GET['id_person']) . '!</p>' . "\n";
 
-
+echo '<p>Tunnuksesi on ' . $_GET['id_person'] . ' , jolla emailisi kera pystyt muokkaamaan tietojasi myöhemmin.</p>';
 
 bottom();
 

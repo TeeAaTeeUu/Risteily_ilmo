@@ -5,6 +5,8 @@ include_once 'classes/tester.php';
 include_once 'classes/person.php';
 include_once 'layout.php';
 
+ob_start();
+
 top();
 
 $db = new database();
@@ -20,12 +22,15 @@ if (isset($_POST['new_person'])) {
         $host = $_SERVER['HTTP_HOST'];
         $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
         $extra = 'hytti.php?id_person=' . $person->id_person;
-        echo "http://$host$uri/$extra";
+//        echo "http://$host$uri/$extra";
         header("Location: http://$host$uri/$extra");
+        exit;
     }
     else
         $again = true;
 }
+
+ob_end_flush();
 
 $form_maker = new form_maker($db);
 

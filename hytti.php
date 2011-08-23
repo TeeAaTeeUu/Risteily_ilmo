@@ -7,6 +7,8 @@ include_once 'classes/person.php';
 include_once 'classes/organization.php';
 include_once 'layout.php';
 
+ob_start();
+
 top();
 
 $db = new database();
@@ -23,6 +25,7 @@ if ((isset($_POST['new_cabin']) or isset($_POST['existing_cabin'])) and isset($_
             $person->set_id_cabin($cabin->id_cabin);
 
             after_ok();
+            exit;
         } else
             $again = true;
     } elseif (isset($_POST['existing_cabin'])) {
@@ -31,17 +34,21 @@ if ((isset($_POST['new_cabin']) or isset($_POST['existing_cabin'])) and isset($_
             $person->set_id_cabin($_POST['id_cabin']);
 
             after_ok();
+            exit;
         } else
             echo 'error';
     }
 }
 
+ob_end_flush();
+
 function after_ok() {
     $host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     $extra = 'kiitos.php?id_person=' . $_GET['id_person'];
-    echo "http://$host$uri/$extra";
+//    echo "http://$host$uri/$extra";
     header("Location: http://$host$uri/$extra");
+    exit;
 }
 
 $form_maker = new form_maker($db);
