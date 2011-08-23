@@ -1,0 +1,60 @@
+table, tr, td {
+    margin: 0px;
+}
+
+.body {
+    width: 600px;
+}
+
+.navbar {
+}
+
+.valinta { 
+    text-align: center;
+    border-right-style: solid;
+    border-right-width: 0.2em;
+}
+
+.info {
+    vertical-align: top;
+}
+
+.right {
+    text-align: right;
+    width: 100%;
+}
+
+.desc {
+    text-align: left;
+    width: 100%;
+    border-left-style: solid;
+    border-left-width: 0.2em;
+}
+
+.luokka {
+    background-color: yellow;
+}
+
+.cabin {
+    padding-bottom: 1em;
+}
+
+.nick {
+    font-size: large;
+    font-weight: bold;
+    border-bottom-style: solid;
+    border-bottom-width: 0.2em;
+}
+
+.filler {
+    height: 2em;
+}
+
+.name {
+    
+    width: 14em;
+}
+
+.center {
+    text-align: center;
+}
