@@ -44,11 +44,11 @@ class organization {
             foreach ($cabins as $cabin) {
                 $persons = array();
 
-                $persons = $this->db->get_persons_by_id_cabin($cabin['id_cabin']);
+                $persons = $this->db->get_persons_nicks_by_id_cabin($cabin['id_cabin']);
 
 //                var_dump($persons);
 
-                if (count($persons) < 4) {
+                if (count($persons) < 4 and count($persons) > 0) {
                     echo('<tr class="cabin"><td class="valinta">');
                     echo '<p class="hytti">ilmoittaudu tähän hyttiin.</p>' . "\n";
 
@@ -60,7 +60,7 @@ class organization {
 
                     $this->print_persons($persons);
 
-                    echo '</td></tr></table></td><td class="info"><table class="right"><tr><td><font class="luokka">' . $cabin['luokka'] . '</font></td></tr>' . "\n";
+                    echo '</td></tr></table></td><td class="info"><table class="right"><tr><td><font class="luokka">' . $cabin['luokka'] . '-luokka</font></td></tr>' . "\n";
                     echo '<tr><td class="desc">' . $cabin['description'] . '</td></tr></table></td></tr>';
                     echo '<tr><td class="filler"></td><td></td><td></td></tr>';
                 }
@@ -86,7 +86,7 @@ class organization {
             foreach ($cabins as $cabin) {
                 $persons = array();
 
-                $persons = $this->db->get_persons_by_id_cabin($cabin['id_cabin']);
+                $persons = $this->db->get_persons_nicks_by_id_cabin($cabin['id_cabin']);
 
 //                var_dump($persons);
 
@@ -96,7 +96,7 @@ class organization {
 
                     $this->print_persons($persons);
 
-                    echo '</td></tr></table></td><td class="info"><table class="right"><tr><td><font class="luokka">' . $cabin['luokka'] . '</font></td></tr>' . "\n";
+                    echo '</td></tr></table></td><td class="info"><table class="right"><tr><td><font class="luokka">' . $cabin['luokka'] . '-luokka</font></td></tr>' . "\n";
                     echo '<tr><td class="desc">' . $cabin['description'] . '</td></tr></table></td></tr>';
                     echo '<tr><td class="filler"></td><td></td><td></td></tr>';
                 }
@@ -109,7 +109,7 @@ class organization {
         echo '<table>';
 
         foreach ($persons_array as $person)
-            echo('<tr><td class="name">' . $person . '</td></tr>');
+            echo('<tr><td class="name">- ' . $person . '</td></tr>');
 
         echo '</table>';
     }

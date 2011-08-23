@@ -1,15 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of tester
- *
- * @author TeeAaTeeUu
- */
 class tester {
 
     private $db;
@@ -254,7 +244,7 @@ class tester {
         foreach ($this->cabin_kentat as $key => $value) {
             if (isset($data_array[$key])) {
                 if (strlen($data_array[$key]) > $value) {
-                    echo "$form_selite[$key] on liian pitkä" . '<br />' . "\n";
+                    echo $this->form_selite[$key] . " on liian pitkä" . '<br />' . "\n";
                     return false;
                 }
             }

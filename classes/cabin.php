@@ -13,7 +13,8 @@ class cabin {
         'luokka',
         'cabin',
         'description',
-        'id_organization'
+        'id_organization',
+        'id_cabin'
     );
 
     public function __construct($database_reference, $argument, $new_cabin) {

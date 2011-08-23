@@ -1,11 +1,13 @@
 <?php
 
-include_once '/classes/database.php';
-include_once '/classes/form_maker.php';
-include_once '/classes/tester.php';
-include_once '/classes/person.php';
-include_once '/classes/organization.php';
-include_once '/layout.php';
+include_once 'classes/database.php';
+include_once 'classes/form_maker.php';
+include_once 'classes/tester.php';
+include_once 'classes/person.php';
+include_once 'classes/organization.php';
+include_once 'layout.php';
+
+top();
 
 $db = new database();
 
@@ -16,7 +18,9 @@ if ((isset($_POST['new_cabin']) or isset($_POST['existing_cabin'])) and isset($_
 //        var_dump($_POST);
     if (isset($_POST['new_cabin'])) {
         if ($tester->test_new_cabin($_POST, $_GET['id_person'])) {
-            $cabin = new cabin($db, $_POST, true, $_GET['id_person']);
+            $cabin = new cabin($db, $_POST, true);
+            $person = new person($db, $_GET['id_person'], false);
+            $person->set_id_cabin($cabin->id_cabin);
 
             after_ok();
         } else
@@ -40,11 +44,7 @@ function after_ok() {
     header("Location: http://$host$uri/$extra");
 }
 
-;
-
 $form_maker = new form_maker($db);
-
-top();
 
 if (isset($_GET['id_person'])) {
     echo '<table><tr><td class="valinta">' . "\n";
@@ -71,8 +71,7 @@ if (isset($_GET['id_person'])) {
             $form_maker->print_form_new_cabin($_POST);
         else
             $form_maker->print_form_new_cabin();
-    } else
-        echo "error";
+    }
 }
 
 bottom();

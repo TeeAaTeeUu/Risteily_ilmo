@@ -1,10 +1,5 @@
 <?php
 
-/*
- * his is a Flight helper class. Instance of
- * his class can store flight information.
- */
-
 class database {
 
     private $local_db;
@@ -21,7 +16,7 @@ class database {
                 or die(mysql_error());
     }
 
-    public function get_query_select($what, $from, $where = null, $is = null, $order_by = null) {
+    public function get_query_select($what, $from, $where = null, $is = null, $order_by = null, $where_array_is_and = true) {
         $what = $this->filterParameters($what);
         $where = $this->filterParameters($where);
         $order_by = $this->filterParameters($order_by);
@@ -33,7 +28,7 @@ class database {
 
         if (!empty($where)) {
             if (is_array($where) and is_array($is)) {
-                $query .= " WHERE " . $this->get_where_query_part_from_array($where, $is);
+                $query .= " WHERE " . $this->get_where_query_part_from_array($where, $is, $where_array_is_and);
             } else
                 $query .= " WHERE " . $where . "='$is'";
         }
@@ -62,12 +57,16 @@ class database {
         return $template_array;
     }
 
-    public function get_where_query_part_from_array($where_array, $is_array) {
+    public function get_where_query_part_from_array($where_array, $is_array, $where_array_is_and) {
         $temp_query = "";
         $first = true;
-        for ($i = 0; $i <= count($where_array)-1; $i++) {
-            if (!$first)
-                $temp_query .= " AND ";
+        for ($i = 0; $i <= count($where_array) - 1; $i++) {
+            if (!$first) {
+                if ($where_array_is_and)
+                    $temp_query .= " AND ";
+                else
+                    $temp_query .= " OR ";
+            }
 
             $temp_query .= "$where_array[$i]='$is_array[$i]'";
 
@@ -110,15 +109,15 @@ class database {
     public function exists_person_id($id) {
         return $this->exists_in_db('persons', 'id_person', $id);
     }
-    
+
     public function exists_person_with_email_id($post) {
         return $this->exists_in_db('persons', array('email', 'id_person'), array($post['email'], $post['id_person']));
     }
-    
+
     public function exists_person_name_with_id($name, $id_person) {
         return $this->exists_in_db('persons', array('name', 'id_person'), array($name, $id_person));
     }
-    
+
     public function exists_person_nick_with_id($nick, $id_person) {
         return $this->exists_in_db('persons', array('nick', 'id_person'), array($nick, $id_person));
     }
@@ -146,9 +145,14 @@ class database {
             return false;
     }
 
-    public function count_persons_in_cabin_by_id($cabin_id) {
-        $person_array = $this->get_query_select('name', "persons", 'cabin_id', $cabin_id);
-        return count($person_array);
+    public function count_persons_in_cabin_by_id($id_cabin) {
+        $persons_array = $this->get_query_select('name', "persons", 'id_cabin', $id_cabin);
+        return count($persons_array);
+    }
+    
+    public function count_cabins_in_organization_by_id($id_organization) {
+        $cabins_array = $this->get_query_select('cabin', "cabins", 'id_organization', $id_organization);
+        return count($cabins_array);
     }
 
     public function get_organizations() {
@@ -163,29 +167,29 @@ class database {
         $temp = $this->get_query_select('*', 'cabins', 'id_cabin', $id_cabin);
         return $temp[0];
     }
-    
+
     public function get_id_cabin_by_id_person($id_person) {
         $temp = $this->get_query_select('id_cabin', 'persons', 'id_person', $id_person);
         return $temp[0]['id_cabin'];
     }
 
-    public function get_persons_by_id_cabins_array($id_cabins_array) {
+    public function get_persons_in_cabins_by_cabins_array($cabins_array) {
         $temp_where_array;
         $temp_is_array;
 
-        if (!empty($id_cabins_array)) {
-            foreach ($id_cabins_array as $cabin) {
+        if (!empty($cabins_array)) {
+            foreach ($cabins_array as $cabin) {
                 $temp_where_array[] = 'id_cabin';
                 $temp_is_array[] = $cabin['id_cabin'];
             }
         } else
             return array();
 
-        return $this->get_query_select('*', 'persons', $temp_where_array, $temp_is_array, 'name');
+        return $this->get_query_select('*', 'persons', $temp_where_array, $temp_is_array, 'name', false);
     }
 
     public function exists_persons_in_cabins_of_id_organization($id_organization) {
-        if (count($this->get_persons_by_id_cabins_array($this->get_cabins_by_id_organization($id_organization))) !== 0)
+        if (count($this->get_persons_in_cabins_by_cabins_array($this->get_cabins_by_id_organization($id_organization))) !== 0)
             return true;
         else
             false;
@@ -206,7 +210,7 @@ class database {
         return $temp[0];
     }
 
-    public function get_persons_by_id_cabin($id_cabin) {
+    public function get_persons_nicks_by_id_cabin($id_cabin) {
         $temp = $this->get_query_select('name, nick', 'persons', 'id_cabin', $id_cabin);
 
 //        var_dump($temp);
@@ -270,6 +274,8 @@ class database {
         if (isset($where))
             $query .= "WHERE $where='$is'";
 
+        echo $query;
+
         mysql_query($query)
                 or die(mysql_error());
     }
@@ -277,7 +283,7 @@ class database {
     public function update_db_person_with_cabin_id($id_person, $id_cabin) {
         $this->update_db(array('id_cabin' => $id_cabin), 'persons', 'id_person', $id_person);
     }
-    
+
     public function update_db_cabin_by_organization_id($id_cabin, $id_organization) {
         $this->update_db(array('id_organization' => $id_organization), 'cabins', 'id_cabin', $id_cabin);
     }

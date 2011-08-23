@@ -26,7 +26,7 @@ table, tr, td {
 
 .desc {
     text-align: left;
-    width: 100%;
+    width: 18em;
     border-left-style: solid;
     border-left-width: 0.2em;
 }
@@ -52,7 +52,7 @@ table, tr, td {
 
 .name {
     
-    width: 14em;
+    width: 10em;
 }
 
 .center {

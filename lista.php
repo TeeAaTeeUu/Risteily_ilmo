@@ -1,8 +1,10 @@
 <?php
 
-include_once '/classes/form_maker.php';
-include_once '/classes/organization.php';
-include_once '/classes/tester.php';
+include_once 'classes/form_maker.php';
+include_once 'classes/organization.php';
+include_once 'classes/database.php';
+include_once 'classes/cruise.php';
+include_once 'classes/tester.php';
 include_once 'layout.php';
 
 top();
@@ -19,8 +21,11 @@ if (isset($_POST['select_organization_for_booking'])) {
         $organization->print_all_cabins_by_organization();
     }
 }
-else
+else {
     $form_maker->print_form_select_organization_for_booking();
-
+    
+    $cruise = new cruise($db);
+    $cruise->print_stats();
+}
 bottom();
 ?>

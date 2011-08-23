@@ -1,7 +1,7 @@
 <?php
 
-include_once '/classes/database.php';
-include_once '/layout.php';
+include_once 'classes/database.php';
+include_once 'layout.php';
 
 top();
 

@@ -1,6 +1,6 @@
 <?php
 
-include '../classes/database.php';
+include 'classes/database.php';
 
 $persons = array(// Mitkä arvot luodaan käyttäjä tasolle
     'name' => 40,
@@ -47,9 +47,9 @@ $organization_list = array(
 );
 
 $tables = array(
-    "person",
-    "cabin",
-    "organization"
+    "persons",
+    "cabins",
+    "organizations"
 );
 
 $db = new database();
@@ -79,7 +79,7 @@ foreach ($tables as $value) {
 }
 
 foreach ($organization_list as $organization => $name) {
-    if (!$db->exists_organization($organization)) {
+    if (!$db->exists_organization_name($organization)) {
         $organization_array = array(
             "id_organization" => $db->get_unique_id(15),
             "organization" => $organization,

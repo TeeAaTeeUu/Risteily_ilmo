@@ -1,7 +1,4 @@
-<?php
-
-function top() {
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <!-- The above DOCTYPE and html lines and the meta http-equiv line below the head are critical. DO NOT DELETE them -->
@@ -9,7 +6,6 @@ function top() {
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <title>Your Page Title Here</title>
 <style type="text/css" media="screen">@import url("css/noodle_real.css");</style>
-<link rel="stylesheet" type="text/css" href="css/css.css" />
 <!-- import with quotes and brackets hides css from:
 Netscape 4.x
 Win IE 3
@@ -117,7 +113,7 @@ as this will break the design ***/
 }
 body{
   background:#EEEEEE;
-  min-width:713px; /*** This is needed for moz. Otherwise, the header and footer will
+  min-width:631px; /*** This is needed for moz. Otherwise, the header and footer will
 slide off the left side of the page if the screen width is narrower than the design.
 Not seen by IE. Left Col + Right Col + Center Col + Both Inner Borders + Both Outer Borders ***/
   text-align:center; /*** IE/Win (not IE/MAC) alignment of page ***/
@@ -141,7 +137,7 @@ Safari only. If IE 5.x Win DID display these, the page is too high ***/
   text-align:left; /*** IE Win re-alignment of page if page is centered ***/
   position:relative; /*** Needed for IE, othewise header and footer aren't contained
 directly above and below the body ***/
-  width:713px; /*** Needed for Moz/Opera to keep page from sliding to left side of
+  width:631px; /*** Needed for Moz/Opera to keep page from sliding to left side of
 page when it calculates auto margins above. Can't use min-width. Note that putting
 width in #fullheightcontainer shows it to IE and causes problems, so IE needs a hack
 to remove this width. Left Col + Right Col + Center Col + Both Inner Border + Both Outer Borders ***/
@@ -180,8 +176,8 @@ from esc tab hack moz min-height solution ***/
 #outer{
   z-index:1; /*** Critical value for Moz/Opera Background Column colors fudge to work ***/
   position:relative; /*** IE needs this or the contents won't show outside the parent container. ***/
-  margin-left:110px; /*** Critical left col dimension value = left col width ***/
-  width:600px; /*** Critical left and right col/divider dimension value (moves inversly) = center col width ***/
+  margin-left:150px; /*** Critical left col dimension value = left col width ***/
+  width:478px; /*** Critical left and right col/divider dimension value (moves inversly) = center col width ***/
   border-left:1px solid #000000; /*** Sets the internal left side border. ***/
   background:#ADD8E6; /*** Sets background of center col***/
 /* \*/
@@ -191,21 +187,21 @@ from esc tab hack moz min-height solution ***/
 }
 /*** The next style hack for widths are NOT needed if no internal side borders are needed ***/
 * html #outer{ /*** IE5.x/win box model fix ***/
-  width:601px; /*** Critical left and right col/divider dimension value
+  width:479px; /*** Critical left and right col/divider dimension value
 (moves inversly) = Center Col Width + Both Inner Borders ***/
-  w\idth:600px; /*** Critical left and right col/divider dimension value (moves inversly) = Center Col Width ***/
+  w\idth:478px; /*** Critical left and right col/divider dimension value (moves inversly) = Center Col Width ***/
 }
 #left{
-  width:112px; /*** Critical left col/divider dimension value = Left Col Width + 1px + One Internal Border Width ***/
+  width:152px; /*** Critical left col/divider dimension value = Left Col Width + 1px + One Internal Border Width ***/
   float:left;
   display:inline;
   position:relative; /*** IE needs this or the contents won't show
 outside the parent container. ***/
-  margin-left:-111px; /*** Critical left col/divider dimension value = left col width + one internal border width ***/
+  margin-left:-151px; /*** Critical left col/divider dimension value = left col width + one internal border width ***/
 }
-*>html #left{width:111px;} /*** Fix only for IE/Mac = left col width + one internal border width ***/
+*>html #left{width:151px;} /*** Fix only for IE/Mac = left col width + one internal border width ***/
 #container-left{
-  width:110px; /*** Critical left col dimension value = left col width - 1px ***/
+  width:150px; /*** Critical left col dimension value = left col width - 1px ***/
 }
 /*** Static fixes ***/
 
@@ -221,7 +217,7 @@ outside the parent container. ***/
      just one Mac-hack for convenience if desired. However, each fix must come
      later than the rule it is fixing or the fix itself will be overridden. ***/
 #center{
-  width:600px; /*** Set to = center col width ***/
+  width:478px; /*** Set to = center col width ***/
   float:right;
   display:inline;
 /* \*/
@@ -251,7 +247,7 @@ Similar calcs for footers. ***/
   z-index:1; /*** Critical value for Moz/Opera Background Column colors fudge to work ***/
   position:absolute;
   clear: both;
-  width:713px; /*** Set to Left Col + Right Col + Center Col + Both Inner Borders +
+  width:631px; /*** Set to Left Col + Right Col + Center Col + Both Inner Borders +
 Both External Borders ***/
   height:52px; /*** = Bottom Margin + One Outer Border + body to footer divider depth +
 subfooter1 height + any other subfooter heights ***/
@@ -268,7 +264,7 @@ subfooter1 height + any other subfooter heights ***/
   z-index:1; /*** Critical value for Moz/Opera Background Column colors fudge to work ***/
   position:absolute;
   top:0px;
-  width:713px; /*** Set to Left Col (not if left sidebar fully intrudes into header or left sidebar is off)
+  width:631px; /*** Set to Left Col (not if left sidebar fully intrudes into header or left sidebar is off)
 + Right Col (not if right sidebar fully intrudes into header or right sidebar is off) + Center Col + Both Inner
 Borders (not if any sidebar intrudes into header or footer, or Inner Borders are off) + Both External Borders
 (not if external borders are off) ***/
@@ -293,8 +289,8 @@ subheader1 height + any other subheader heights ***/
   position:absolute;
   height:100%;
   overflow:hidden;
-  width:600px; /*** = Center Col Width ***/
-  margin-left:110px; /*** = Left Col Width ***/
+  width:478px; /*** = Center Col Width ***/
+  margin-left:150px; /*** = Left Col Width ***/
   background:#ADD8E6; /*** Set background color for center column for Mozilla & Opera ***/
   border-left:1px solid #000000;
   border-left:1px solid #000000;
@@ -320,58 +316,44 @@ subheader1 height + any other subheader heights ***/
       <div id="center">
         <div id="clearheadercenter"></div>
         <div id="container-center">
-                            <?php
-                        }
-
-                        function bottom() {
-                            ?>
-                            </p>
-                        </div>
-                        <div id="clearfootercenter"></div>
-                    </div>
-                    <div id="left">
-                        <div id="clearheaderleft"></div>
-                        <div id="container-left">
-                            <?php
-                            $lista = array(
-                                'index' => "Etusivu",
-                                'matkaaja' => "Ilmoittaudu",
-                                'lista' => "Hytti-listat",
-                                'muokkaa' => "Muokkaa tietojasi"
-                            );
-
-                            foreach ($lista as $tiedosto => $nimi)
-                                echo '<a href="' . $tiedosto . '.php">' . $nimi . '</a><br />';
-                            ?>
-                        </div>
-                        <div id="clearfooterleft"></div>
-                    </div>
-                    <div class="clear">&nbsp;</div>
-                </div>
-                <div id="gfx_bg_middle">&nbsp;</div>
-            </div>
-            <div id="header">
-                <div class="outer_horiz_border">&nbsp;</div>
-                <div id="subheader1">
-                    <p>
-                        <h2>Risteily_ilmo softa</h2>
-                    </p>
-                </div>
-                <div class="outer_horiz_border">&nbsp;</div>
-            </div>
-            <div class="clear">&nbsp;</div>
-            <div id="footer">
-                <div class="outer_horiz_border">&nbsp;</div>
-                <div id="subfooter1">
-                    <p>
-                        by Tatu Tallberg
-                    </p>
-                </div>
-                <div class="outer_horiz_border">&nbsp;</div>
-            </div>
+          <p>
+            This is the<br />Main Content<br />
+          </p>
         </div>
-    </body>
+        <div id="clearfootercenter"></div>
+      </div>
+      <div id="left">
+        <div id="clearheaderleft"></div>
+        <div id="container-left">
+          <p>
+            This is the Left Sidebar<br />
+          </p>
+        </div>
+        <div id="clearfooterleft"></div>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <div id="gfx_bg_middle">&nbsp;</div>
+  </div>
+  <div id="header">
+    <div class="outer_horiz_border">&nbsp;</div>
+    <div id="subheader1">
+      <p>
+        This is Sub-Header #1 (with Fixed Height)
+      </p>
+    </div>
+    <div class="outer_horiz_border">&nbsp;</div>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div id="footer">
+    <div class="outer_horiz_border">&nbsp;</div>
+    <div id="subfooter1">
+      <p>
+        This is Sub-Footer #1 (with Fixed Height)
+      </p>
+    </div>
+    <div class="outer_horiz_border">&nbsp;</div>
+  </div>
+</div>
+</body>
 </html>
-<?php
-}
-?>

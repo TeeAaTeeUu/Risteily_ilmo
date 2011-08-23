@@ -1,9 +1,9 @@
 <?php
-include_once '/classes/database.php';
-include_once '/classes/form_maker.php';
-include_once '/classes/tester.php';
-include_once '/classes/person.php';
-include_once '/layout.php';
+include_once 'classes/database.php';
+include_once 'classes/form_maker.php';
+include_once 'classes/tester.php';
+include_once 'classes/person.php';
+include_once 'layout.php';
 
 top();
 

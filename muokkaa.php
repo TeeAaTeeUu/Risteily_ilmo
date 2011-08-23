@@ -1,10 +1,10 @@
 <?php
 
 include_once 'layout.php';
-include_once '/classes/form_maker.php';
-include_once '/classes/database.php';
-include_once '/classes/tester.php';
-include_once '/classes/person.php';
+include_once 'classes/form_maker.php';
+include_once 'classes/database.php';
+include_once 'classes/tester.php';
+include_once 'classes/person.php';
 
 top();
 
@@ -36,4 +36,6 @@ elseif (isset($_POST['existing_person'])) {
     else
         $form_maker->print_form_password();
 };
+
+bottom();
 ?>
