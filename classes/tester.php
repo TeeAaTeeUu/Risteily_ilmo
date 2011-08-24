@@ -98,7 +98,7 @@ class tester {
     public function test_new_person($data_array) {
 
         if (!isset($data_array["email"])) {
-            echo "Pitää olla email.";
+            echo "Pitää olla email";
             return false;
         }
 

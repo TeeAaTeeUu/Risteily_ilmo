@@ -11,7 +11,7 @@ top();
 
 $db = new database();
 
-$again = false;
+//$again = false;
 
 if (isset($_POST['new_person'])) {
     $tester = new tester($db);
@@ -26,18 +26,20 @@ if (isset($_POST['new_person'])) {
         header("Location: http://$host$uri/$extra");
         exit;
     }
-    else
-        $again = true;
+    else {
+//        $again = true;
+        echo '<hr />';
+    }
 }
 
 ob_end_flush();
 
 $form_maker = new form_maker($db);
 
-if ($again)
+//if ($again)
     $form_maker->print_form_new_person($_POST);
-else
-    $form_maker->print_form_new_person();
+//else
+//    $form_maker->print_form_new_person();
 
 bottom();
 ?>

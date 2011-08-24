@@ -13,7 +13,7 @@ top();
 
 $db = new database();
 
-$again = false;
+//$again = false;
 
 if ((isset($_POST['new_cabin']) or isset($_POST['existing_cabin'])) and isset($_GET['id_person'])) {
     $tester = new tester($db);
@@ -26,8 +26,9 @@ if ((isset($_POST['new_cabin']) or isset($_POST['existing_cabin'])) and isset($_
 
             after_ok();
             exit;
-        } else
-            $again = true;
+        }
+        else
+           echo '<hr />';
     } elseif (isset($_POST['existing_cabin'])) {
         if ($tester->test_existing_cabin($_POST['id_cabin'], $_GET['id_person'])) {
             $person = new person($db, $_GET['id_person'], false);
@@ -56,14 +57,14 @@ $form_maker = new form_maker($db);
 if (isset($_GET['id_person'])) {
     echo '<table><tr><td class="valinta">' . "\n";
 
-    $form_maker->print_form_select_new_cabin();
+    $form_maker->print_form_select_new_cabin(true);
 
     echo '</td><td>' . "\n";
 
     if (isset($_POST['new_cabin']) or isset($_POST['select_organization_for_booking']) or isset($_POST['existing_cabin']))
-        $form_maker->print_form_select_organization_for_booking($_POST);
+        $form_maker->print_form_select_organization_for_booking($_POST, true);
     else
-        $form_maker->print_form_select_organization_for_booking();
+        $form_maker->print_form_select_organization_for_booking($_POST, true);
 
     echo '</td></tr></table>' . "\n";
 
@@ -74,10 +75,10 @@ if (isset($_GET['id_person'])) {
             $organization->print_incomplete_cabins_by_organization();
         }
     } elseif (isset($_POST['select_new_cabin']) or isset($_POST['new_cabin'])) {
-        if ($again)
+//        if ($again)
             $form_maker->print_form_new_cabin($_POST);
-        else
-            $form_maker->print_form_new_cabin();
+//        else
+//            $form_maker->print_form_new_cabin();
     }
 }
 

@@ -17,24 +17,22 @@ if (isset($_POST['password'])) {
     if ($tester->test_password($_POST)) {
         $form_maker->print_form_existing_person($_POST['tunnus']);
     } else
-        $again = true;
+        echo '<hr />';
 }
 elseif (isset($_POST['existing_person'])) {
     $tester = new tester($db);
     if ($tester->test_existing_person($_POST)) {
         $person = new person($db, $_POST['id_person'], false);
         $person->update_person($_POST);
-        
+
         echo 'Päivitys onnistui!' . "\n";
-    }
+    } else
+        echo '<hr />';
     $form_maker->print_form_existing_person($_POST);
 } elseif (isset($_POST['existing_person_reset'])) {
     $form_maker->print_form_existing_person($_POST['id_person']);
 } else {
-    if ($again)
-        $form_maker->print_form_password($_POST);
-    else
-        $form_maker->print_form_password();
+    $form_maker->print_form_password($_POST);
 };
 
 bottom();

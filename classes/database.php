@@ -274,7 +274,7 @@ class database {
         if (isset($where))
             $query .= "WHERE $where='$is'";
 
-        echo $query;
+//        echo $query;
 
         mysql_query($query)
                 or die(mysql_error());

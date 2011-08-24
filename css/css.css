@@ -3,7 +3,6 @@ table, tr, td {
 }
 
 .body {
-    width: 600px;
 }
 
 .navbar {
@@ -57,4 +56,13 @@ table, tr, td {
 
 .center {
     text-align: center;
+}
+
+.input {
+    font-weight: 600;
+}
+
+.otsikko {
+    font-size: 250%;
+    font-weight: bold;
 }

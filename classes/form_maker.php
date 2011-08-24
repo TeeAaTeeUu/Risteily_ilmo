@@ -102,14 +102,15 @@ class form_maker {
         echo '</form>';
     }
 
-    public function print_form_select_organization_for_booking($post = array()) {
+    public function print_form_select_organization_for_booking($post = array(), $same_form = false) {
         echo '<div class="center">';
 
         echo '<p>Valitse tästä ainejärjestö, jonka vapaaseen hyttiin haluat ilmoittautua.</p>';
 
-        echo '<form method="post">' . "\n";
+        if ($same_form == false)
+            echo '<form method="post">' . "\n";
 
-        $this->make_organization_select($post);
+        $this->make_organization_select($post, null);
 
         echo '<input name="select_organization_for_booking" type="submit"  value="listaa" />';
         echo '</form>';
@@ -117,27 +118,28 @@ class form_maker {
         echo '</div>';
     }
 
-    public function print_form_select_new_cabin() {
+    public function print_form_select_new_cabin($same_form = false) {
         echo '<p>Ilmoittaudu tätä kautta uuteen hyttiin.</p>';
 
         echo '<form method="post">' . "\n";
-
+        
         echo '<input name="select_new_cabin" type="submit"  value="luo uusi hytti" />';
-        echo '</form>';
+        if ($same_form == false)
+            echo '</form>';
     }
 
     public function make_name($post = array()) {
         $value = '';
         if (isset($post['name']))
             $value = 'value="' . $post['name'] . '" ';
-        echo '<span>Nimi</span><br />' . "\n" . '<input name="name" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
+        echo '<span class="input">*Nimi </span><span>(julkinen, jos ei lempinimeä)</span><br />' . "\n" . '<input name="name" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
     }
 
     public function make_password($post = array()) {
         $value = '';
         if (isset($post['tunnus']))
             $value = 'value="' . $post['tunnus'] . '" ';
-        echo '<span>Tunniste</span><br />' . "\n" . '<input name="tunnus" type="password" ' . $value . 'maxlength="255" /><br />' . "\n";
+        echo '<span class="input">Tunniste</span><br />' . "\n" . '<input name="tunnus" type="password" ' . $value . 'maxlength="255" /><br />' . "\n";
     }
 
     public function make_hidden($name, $value) {
@@ -148,58 +150,62 @@ class form_maker {
         $value = '';
         if (isset($post['email']))
             $value = 'value="' . $post['email'] . '" ';
-        echo '<span>Email</span><br />' . "\n" . '<input name="email" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
+        echo '<span class="input">*Email</span><br />' . "\n" . '<input name="email" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
     }
 
     public function make_nick($post = array()) {
         $value = '';
         if (isset($post['nick']))
             $value = 'value="' . $post['nick'] . '" ';
-        echo '<span>Lempinimesi</span><br />' . "\n" . '<input name="nick" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
+        echo '<span class="input">Lempinimesi </span><span>(julkinen)</span><br />' . "\n" . '<input name="nick" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
     }
 
     public function make_etukortti($post = array()) {
         $value = '';
         if (isset($post['etukortti']))
             $value = 'value="' . $post['etukortti'] . '" ';
-        echo '<span>Club one -kortti</span><br />' . "\n" . '<input name="etukortti" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
+        echo '<span class="input">Club one -kortti</span><br />' . "\n" . '<input name="etukortti" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
     }
 
     public function make_cabin($post = array()) {
         $value = '';
         if (isset($post['cabin']))
             $value = 'value="' . $post['cabin'] . '" ';
-        echo '<span>Hyttisi nimi</span><br />' . "\n" . '<input name="cabin" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
+        echo '<span class="input">*Hyttisi nimi </span><span>(julkinen)</span><br />' . "\n" . '<input name="cabin" type="text" ' . $value . 'maxlength="255" /><br />' . "\n";
     }
 
     public function make_info($post = array()) {
         $value = '';
         if (isset($post['info']))
             $value = $post['info'];
-        echo '<textarea name="info" rows="8" cols="40">' . $value . '</textarea><br />' . "\n";
+        echo '<span class="input">Lisätietoa</span><br />' . "\n" . '<textarea name="info" rows="8" cols="40">' . $value . '</textarea><br />' . "\n";
     }
 
     public function make_description($post = array()) {
         $value = '';
         if (isset($post['description']))
             $value = $post['description'];
-        echo '<textarea name="description" rows="8" cols="40">' . $value . '</textarea><br />' . "\n";
+        echo '<span class="input">Hyttisi lisätietoa </span><span>(julkinen)</span><br />' . "\n" . '<textarea name="description" rows="8" cols="40">' . $value . '</textarea><br />' . "\n";
     }
 
     public function make_food_checkbox($post = array()) {
-        echo '<span>Ruokailusi</span><br />' . "\n";
+        echo '<span class="input">*Ruokailusi </span><span>(yksi pakollinen)</span><br />' . "\n";
 
+        $first = true;
         foreach ($this->ruokailu_valinta as $ruokailu => $hinta) {
             $value = '';
             if (isset($post[$ruokailu]))
                 $value = ' checked="checked"';
-            echo '<input name="' . $ruokailu . '" type="checkbox" value="1"' . $value . ' /><label class="checkbox" for="' . $ruokailu . '">' . $this->ruokailu_selite[$ruokailu] . ' (' . $hinta . 'e)</label>' . "\n";
+            if (!$first)
+                echo '<br />' . "\n";
+            $first = false;
+            echo '<input name="' . $ruokailu . '" type="checkbox" value="1"' . $value . ' /><label class="checkbox" for="' . $ruokailu . '">' . $this->ruokailu_selite[$ruokailu] . ' (' . $hinta . 'e)</label>';
         }
         echo '<br />';
     }
 
     public function make_cabin_class_select($post = array()) {
-        echo '<span>Hyttiluokka</span><br />' . "\n";
+        echo '<span class="input">*Hyttiluokka</span><br />' . "\n";
         echo '<select name="luokka">' . "\n";
 
         foreach ($this->luokka_valinta as $luokka => $hinta) {
@@ -215,7 +221,7 @@ class form_maker {
     }
 
     public function make_travel_type_select($post = array()) {
-        echo '<span>Linja-auto valinta</span><br />' . "\n";
+        echo '<span class="input">*Linja-auto valinta</span><br />' . "\n";
         echo '<select name="travel">' . "\n";
 
         foreach ($this->bussi_valinta as $tyyppi => $hinta) {
@@ -230,8 +236,8 @@ class form_maker {
         echo '</select><br />' . "\n";
     }
 
-    public function make_organization_select($post = array()) {
-        echo '<span>Ainejärjestö</span><br />' . "\n";
+    public function make_organization_select($post = array(), $list_form = "*") {
+        echo '<span class="input">' . $list_form . 'Ainejärjestö</span><br />' . "\n";
         echo '<select name="id_organization">' . "\n";
 
         $organizations = $this->db->get_organizations();
